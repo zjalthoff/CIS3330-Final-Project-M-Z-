@@ -3,6 +3,7 @@ import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import tabulate as tb
 
 
 df = pd.read_csv('shopping_trends.csv')
@@ -12,11 +13,27 @@ pd.set_option('display.max_columns', None)
 
 #print(df.columns)
 
+
+# # # DESCRIPTIVE ANALYTICS
+
+
 numeric_desc = new_df.describe()
-categorical_desc = new_df['Gender'].value_counts(),df['Item Purchased'].value_counts(),df['Category'].value_counts(),df['Subscription Status'].value_counts(),df['Location'].value_counts(),df['Season'].value_counts(),df['Payment Method'].value_counts(),df['Frequency of Purchases'].value_counts()
+numeric_desc_table = tb.tabulate(numeric_desc, headers='keys',tablefmt='pretty')
 
-print(numeric_desc)
-print(categorical_desc)
+categorical_columns = ['Gender','Item Purchased','Category','Subscription Status','Location','Season','Payment Method','Frequency of Purchases']
+for column in categorical_columns:
+    count = new_df[column].value_counts()
+    print(count)
+    print("\n")
 
-# # VISUALIZATIONS
+# print(numeric_desc_table)
 
+
+# # # DESCRIPTIVE VISUALIZATIONS
+
+#Age variable distribution
+# plt.xlabel('Age')
+# plt.ylabel('Count')
+# plt.title('Age Distribution of Customers')
+# plt.hist(df['Age'],bins=25, edgecolor='black') 
+# plt.show()
