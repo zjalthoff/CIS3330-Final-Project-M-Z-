@@ -40,8 +40,12 @@ for column in categorical_columns:
 
 # # # SEPARATING OBSERVATIONS BASED ON AGE
 
-new_df['age_range_1'] = (new_df['Age'] >= 18) & (new_df['Age'] <= 35)
-new_df['age_range_2'] = (new_df['Age'] >= 36) & (new_df['Age'] <= 53)
-new_df['age_range_3'] = (new_df['Age'] >= 54) & (new_df['Age'] <= 70)
+# new_df['age_range_1'] = (new_df['Age'] >= 18) & (new_df['Age'] <= 35)
+# new_df['age_range_2'] = (new_df['Age'] >= 36) & (new_df['Age'] <= 53)
+# new_df['age_range_3'] = (new_df['Age'] >= 54) & (new_df['Age'] <= 70)
+
+age_bins = [18,36,54, float('inf')]
+age_labels = ('18-35','36-53','54-70')
+new_df['age_group'] = pd.cut(new_df['Age'], bins=age_bins, labels=age_labels, right=False)
 
 print(new_df)
