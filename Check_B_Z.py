@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import tabulate as tb
+import statsmodels.api as sm
+import statsmodels.formula.api as sm_api
 
 
 df = pd.read_csv('shopping_trends.csv')
@@ -38,6 +40,8 @@ for column in categorical_columns:
 # plt.hist(df['Age'],bins=25, edgecolor='black') 
 # plt.show()
 
+
+
 # # # SEPARATING OBSERVATIONS BASED ON AGE
 
 # new_df['age_range_1'] = (new_df['Age'] >= 18) & (new_df['Age'] <= 35)
@@ -47,5 +51,19 @@ for column in categorical_columns:
 age_bins = [18,36,54, float('inf')]
 age_labels = ('18-35','36-53','54-70')
 new_df['age_group'] = pd.cut(new_df['Age'], bins=age_bins, labels=age_labels, right=False)
+new_df['Purchase_Amount_USD'] = new_df['Purchase Amount (USD)']
 
-print(new_df)
+# print(new_df['age_group'].value_counts())
+
+# # # ANOVA Analysis
+
+model = sm_api.ols('Purchase_Amount_USD ~ C(age_group)', data=new_df).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+print(anova_table)
+
+
+# # # DECISION TREE
+
+Y = new_df['age_group']
+X = new_df[[]] # what should the decision tree use to classify the age range of each customer?
+
