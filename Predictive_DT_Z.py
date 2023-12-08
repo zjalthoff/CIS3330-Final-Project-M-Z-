@@ -29,9 +29,8 @@ clustered_df2 = pd.get_dummies(clustered_df,columns=['Gender','Season','Category
 #print(clustered_df2.columns)
 
 Y = clustered_df2['cluster']
-indep_vars = ['Gender_Female', 'Gender_Male','Season_Fall', 'Season_Spring', 'Season_Summer', 'Season_Winter','Category_Accessories', # Likelihood of overfitting greatly increased with the addition of gender variables
-       'Category_Clothing', 'Category_Footwear', 'Category_Outerwear',
-        'Subscription Status_No', 'Subscription Status_Yes','Payment Method_Cash']
+indep_vars = ['Gender_Male','Season_Fall', 'Season_Spring', 'Season_Summer', 'Season_Winter','Category_Accessories', # Likelihood of overfitting greatly increased with the addition of gender variables
+       'Category_Clothing', 'Category_Footwear', 'Category_Outerwear', 'Subscription Status_Yes', 'Payment Method_Cash']
 # # # Try not to use variables that mean the same thing
 
 X = clustered_df2[indep_vars]
@@ -40,15 +39,15 @@ x_train, x_test, y_train, y_test = train_test_split(X,Y,test_size=0.2,random_sta
 
 # # # DECISION TREE
 
-# tree_depth = 25
-# for i in range(1,tree_depth+1):
-#     cust_dt = DecisionTreeClassifier(criterion='entropy',random_state=100,max_depth=i) #entropy = metric by which branches will be evaluated, randome_state = , max depth = branches depth
-#     cust_dt.fit(x_train,y_train)
-#     y_hat_DT = cust_dt.predict(x_test)
-#     accuracy_DT = accuracy_score(y_test,y_hat_DT)
-#     precision_DT = precision_score(y_test,y_hat_DT,average='weighted')
-#     f_1_DT = f1_score(y_test,y_hat_DT,average='weighted')
-#     print(f"For max depth of {i}, precision is:{precision_DT}, F1 is:{f_1_DT}, and accuracy is:{accuracy_DT}")
+tree_depth = 25
+for i in range(1,tree_depth+1):
+    cust_dt = DecisionTreeClassifier(criterion='entropy',random_state=100,max_depth=i) #entropy = metric by which branches will be evaluated, randome_state = , max depth = branches depth
+    cust_dt.fit(x_train,y_train)
+    y_hat_DT = cust_dt.predict(x_test)
+    accuracy_DT = accuracy_score(y_test,y_hat_DT)
+    precision_DT = precision_score(y_test,y_hat_DT,average='weighted')
+    f_1_DT = f1_score(y_test,y_hat_DT,average='weighted')
+    print(f"For max depth of {i}, precision is:{precision_DT}, F1 is:{f_1_DT}, and accuracy is:{accuracy_DT}")
 
 
 # # # RANDOM FOREST - All evaluation metrics return 1 w/ current variables (Risk of overfitting)
@@ -86,10 +85,10 @@ x_train, x_test, y_train, y_test = train_test_split(X,Y,test_size=0.2,random_sta
 
 # # # Naïve Bayes - Less than perfect, but very close to perfect w/ current variables (Risk of overfitting)
 
-cust_NB = GaussianNB()
-cust_NB.fit(x_train,y_train)
-y_hat_NB = cust_NB.predict(x_test)
-accuracy_NB = accuracy_score(y_test,y_hat_NB)
-precision_NB = precision_score(y_test,y_hat_NB,average='weighted')
-f_1_NB = f1_score(y_test,y_hat_NB,average='weighted')
-print(f"Using the Random Forest method, precision is:{precision_NB}, F1 is {f_1_NB}, and accuracy is {accuracy_NB}")
+# cust_NB = GaussianNB()
+# cust_NB.fit(x_train,y_train)
+# y_hat_NB = cust_NB.predict(x_test)
+# accuracy_NB = accuracy_score(y_test,y_hat_NB)
+# precision_NB = precision_score(y_test,y_hat_NB,average='weighted')
+# f_1_NB = f1_score(y_test,y_hat_NB,average='weighted')
+# print(f"Using the Random Forest method, precision is:{precision_NB}, F1 is {f_1_NB}, and accuracy is {accuracy_NB}")

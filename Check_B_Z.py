@@ -33,6 +33,7 @@ for column in categorical_columns:
 
 # # # DESCRIPTIVE VISUALIZATIONS
 
+
 # # Age variable distribution
 # plt.xlabel('Age')
 # plt.ylabel('Count')
