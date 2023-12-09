@@ -18,41 +18,41 @@ c2_df = clustered_df.query("Cluster_Number == 'Cluster 2'")
 c3_df = clustered_df.query("Cluster_Number == 'Cluster 3'")
 c4_df = clustered_df.query("Cluster_Number == 'Cluster 4'")
 
-# categorical_columns = ['Gender','Item Purchased','Category','Subscription Status','Location','Season','Payment Method','Frequency of Purchases']
+categorical_columns = ['Gender','Item Purchased','Category','Subscription Status','Location','Season','Payment Method','Frequency of Purchases']
 
-# print("Cluster 4 Categorical Descriptives")
-# for column in categorical_columns:
-#     count = c4_df[column].value_counts()
-#     # print(count)
-#     # print("\n")
+print("Cluster 4 Categorical Descriptives")
+for column in categorical_columns:
+    count = c4_df[column].value_counts()
+    # print(count)
+    # print("\n")
 
 
-# cluster_list = [c1_df,c2_df,c3_df,c4_df]
-# for cluster in cluster_list:
-#     print(cluster.describe())
-#     print("\n")
+cluster_list = [c1_df,c2_df,c3_df,c4_df]
+for cluster in cluster_list:
+    print(cluster.describe())
+    print("\n")
     
 
 
 # # # Visualizations
 
-# # Item Purchases Bar Graph
-# plt.xlabel('Item Purchased')
-# plt.xticks(rotation=90)
-# plt.ylabel('# of Purchases')
-# plt.title('Total Customer Purchases by Item')
-# item_counts = c1_df['Item Purchased'].value_counts()
-# plt.bar(x=item_counts.index,height=item_counts.values,color='red')
-# plt.show()
+# Item Purchases Bar Graph
+plt.xlabel('Item Purchased')
+plt.xticks(rotation=90)
+plt.ylabel('# of Purchases')
+plt.title('Total Customer Purchases by Item')
+item_counts = c1_df['Item Purchased'].value_counts()
+plt.bar(x=item_counts.index,height=item_counts.values,color='red')
+plt.show()
 
-# # Customer Locations Bar Graph
-# plt.xlabel('Customer Location')
-# plt.xticks(rotation=90)
-# plt.ylabel('# of Customers')
-# plt.title('State for Customer Base')
-# item_counts = c4_df['Location'].value_counts()
-# plt.bar(x=item_counts.index,height=item_counts.values,color='purple')
-# plt.show()
+# Customer Locations Bar Graph
+plt.xlabel('Customer Location')
+plt.xticks(rotation=90)
+plt.ylabel('# of Customers')
+plt.title('State for Customer Base')
+item_counts = c4_df['Location'].value_counts()
+plt.bar(x=item_counts.index,height=item_counts.values,color='purple')
+plt.show()
 
 
 # # Age Histograms

@@ -34,13 +34,13 @@ clustered_df2 = pd.get_dummies(clustered_df,columns=['Gender','Season','Category
 
 Y = clustered_df2['cluster']
 indep_vars = ['Gender_Male','Category_Accessories', 'Category_Clothing', 'Category_Footwear', 'Category_Outerwear']
-# # # Try not to use variables that mean the same thing ,
+# Try not to use variables that mean the same thing , ended up having to remove noise
 
 X = clustered_df2[indep_vars]
 
 x_train, x_test, y_train, y_test = train_test_split(X,Y,test_size=0.2,random_state=1)
 
-# # # DECISION TREE
+# # # DECISION TREE MODEL
 
 tree_depth = 10
 for i in range(1,tree_depth+1):
@@ -52,16 +52,19 @@ for i in range(1,tree_depth+1):
     recall_DT = recall_score(y_test,y_hat_DT,average='weighted')
     print(f"For max depth of {i}, precision is:{precision_DT}, recall is:{recall_DT}, and accuracy is:{accuracy_DT}")
 
-# plt.figure(figsize=(15,10))
-# plot_tree(cust_dt, 
-#           filled=True, 
-#           rounded=True, 
-#           class_names=['Cluster 1', 'Cluster 2', 'Cluster 3', 'Cluster 4'], 
-#           feature_names=X.columns)
-# plt.show()
+
+# # Plotting the Decision Tree
+plt.figure(figsize=(15,10))
+plot_tree(cust_dt, 
+          filled=True, 
+          rounded=True, 
+          class_names=['Cluster 1', 'Cluster 2', 'Cluster 3', 'Cluster 4'], 
+          feature_names=X.columns)
+plt.show()
 
 # # # RANDOM FOREST - All evaluation metrics return 1 w/ current variables (Risk of overfitting)
 
+print ("\n")
 cust_RF = RandomForestClassifier(random_state=0)
 cust_RF.fit(x_train,y_train)
 y_hat_RF = cust_RF.predict(x_test)
@@ -73,6 +76,7 @@ print(f"Using the Random Forest method, precision is:{precision_RF}, recall is {
 
 # # # SVM - All evaluation metrics return 1 w/ current variables (Risk of overfitting)
 
+print ("\n")
 cust_SVM = SVC(gamma='auto')
 cust_SVM.fit(x_train,y_train)
 y_hat_SVM = cust_SVM.predict(x_test)
@@ -84,6 +88,7 @@ print(f"Using the SVC method, precision is:{precision_SVM}, recall is {recall_SV
 
 # # # Logistic Regression - Less than perfect, but very close to perfect w/ current variables (Risk of overfitting)
 
+print ("\n")
 cust_LR = LogisticRegression(solver='liblinear',random_state=1)
 cust_LR.fit(x_train,y_train)
 y_hat_LR = cust_LR.predict(x_test)
@@ -95,6 +100,7 @@ print(f"Using the Logistic Regression method, precision is:{precision_LR}, recal
 
 # # # Naïve Bayes - Less than perfect, but very close to perfect w/ current variables (Risk of overfitting)
 
+print ("\n")
 cust_NB = GaussianNB()
 cust_NB.fit(x_train,y_train)
 y_hat_NB = cust_NB.predict(x_test)
