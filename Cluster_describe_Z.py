@@ -11,7 +11,7 @@ df = pd.read_csv('_shopping_trends_with_three_clusters.csv')
 clustered_df = df[['Cluster_Number','Age', 'Gender', 'Item Purchased', 'Category', 'Purchase Amount (USD)', 'Location', 'Season','Subscription Status',
              'Payment Method','Previous Purchases','Frequency of Purchases']]
 
-print(clustered_df['Gender'].value_counts())
+# print(clustered_df['Gender'].value_counts())
 
 c1_df = clustered_df.query("Cluster_Number == 'Cluster 1'")
 c2_df = clustered_df.query("Cluster_Number == 'Cluster 2'")
@@ -26,14 +26,12 @@ c4_df = clustered_df.query("Cluster_Number == 'Cluster 4'")
 #     # print(count)
 #     # print("\n")
 
-cluster_list = [c1_df,c2_df,c3_df,c4_df]
-for cluster in cluster_list:
-    cluster_num = 1
-    print(f"Cluster {cluster_num}")
-    print(cluster.describe())
-    print("\n")
-    cluster_num =+ 1
 
+# cluster_list = [c1_df,c2_df,c3_df,c4_df]
+# for cluster in cluster_list:
+#     print(cluster.describe())
+#     print("\n")
+    
 
 
 # # # Visualizations
@@ -55,3 +53,18 @@ for cluster in cluster_list:
 # item_counts = c4_df['Location'].value_counts()
 # plt.bar(x=item_counts.index,height=item_counts.values,color='purple')
 # plt.show()
+
+
+# # Age Histograms
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.title('Age Distribution of Customers')
+plt.hist(c1_df['Age'],bins=25, edgecolor='black',color='blue') 
+plt.show()
+
+# # Previous Purchases Distribution
+plt.xlabel('# of Historical Purchases')
+plt.ylabel('Customer Count')
+plt.title('Distribution of Historical Purchases Across Customers')
+plt.hist(c1_df['Previous Purchases'],bins=25, edgecolor='black',color='blue') 
+plt.show()
